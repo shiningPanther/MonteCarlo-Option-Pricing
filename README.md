@@ -15,9 +15,9 @@ In order to obtain a good estimate of the exact price and in particular the gree
   3. Use of quasi-random numbers instead of pseudorandom numbers.
   
 #### Examples
-![]<img src="/example_price.png" width="500"/>
-![](/example_delta.png)
-![](/example_gamma.png)
-![](/example_theta.png)
-![](/example_vega.png)
-![](/example_rho.png)
+<img src="/example_price.png" width="500"/>
+<img src="/example_delta.png" width="500"/>
+<img src="/example_gamma.png" width="500"/>
+<img src="/example_theta.png" width="500"/>
+<img src="/example_vega.png" width="500"/>
+<img src="/example_rho.png" width="500"/>
