@@ -149,17 +149,17 @@ def calculatePrices_Analytic(K=K, S0=S0, B=B, sigma=sigma, r=r, T=T):
 	'''
 
 	# W can use smaller increments for the parameters here, in order to achieve a more precise value of the greeks
-	dS0_analytic = S0*0.0000001
-	dsigma_analytic = sigma*0.0000001
-	dr_analytic = r*0.0000001
-	dt_analytic = T*0.0000001
+	dS0 = S0*0.0000001
+	dsigma = sigma*0.0000001
+	dr = r*0.0000001
+	dt = T*0.0000001
 
 	C = calculateBarrierPrice(S0, r, sigma, T)
-	delta = (calculateBarrierPrice(S0+dS0_analytic, r, sigma, T) - optionPrice_analytic) / dS0_analytic
-	gamma = (calculateBarrierPrice(S0+dS0_analytic, r, sigma, T) - 2*optionPrice_analytic + calculateBarrierPrice(S0-dS0_analytic, r, sigma, T)) / dS0_analytic**2
-	vega = (calculateBarrierPrice(S0, r, sigma+dsigma_analytic, T) - optionPrice_analytic) / dsigma_analytic
-	theta = (calculateBarrierPrice(S0, r, sigma, T-dt_analytic) - optionPrice_analytic) / dt_analytic
-	rho = (calculateBarrierPrice(S0, r+dr_analytic, sigma, T) - optionPrice_analytic) / dr_analytic
+	delta = (calculateBarrierPrice(S0+dS0, r, sigma, T) - C) / dS0
+	gamma = (calculateBarrierPrice(S0+dS0, r, sigma, T) - 2*C + calculateBarrierPrice(S0-dS0, r, sigma, T)) / dS0**2
+	vega = (calculateBarrierPrice(S0, r, sigma+dsigma, T) - C) / dsigma
+	theta = (calculateBarrierPrice(S0, r, sigma, T-dt) - C) / dt
+	rho = (calculateBarrierPrice(S0, r+dr, sigma, T) - C) / dr
 
 	return C, delta, gamma, vega, theta, rho
 
@@ -188,9 +188,9 @@ print('Rho analytic: {}'.format(rho_analytic))
 
 #Plot the errors vs the of number of simulations
 Nlower = 100000 # lower range of simulations from where to start the plots
-Nsim_array = range(1, Nsim+1)
+Nsim_array = range(1, 1000000+1)
 fig1, ax1 = plt.subplots()
-ax1.plot(Nsim_array[Nlower-1:], (C_avg[Nlower-1:]/optionPrice_analytic - 1)*100)
+ax1.plot(Nsim_array[Nlower-1:], (C_avg[Nlower-1:]/C_analytic - 1)*100)
 ax1.set_title('Percentage error of the option price')
 fig2, ax2 = plt.subplots()
 ax2.plot(Nsim_array[Nlower-1:], (delta_avg[Nlower-1:]/delta_analytic - 1)*100)
